@@ -17,7 +17,7 @@ class MarkovMachine {
             let nextWord = this.words [i + 1] || null;
 
             if (chains.has(word)) chains.get(word).push(nextWord);
-            else chains.set(word, [nextword]);
+            else chains.set(word, [nextWord]);
         }
         this.chains = chains;
     }
