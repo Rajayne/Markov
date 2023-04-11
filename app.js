@@ -10,4 +10,12 @@ function generateText(text) {
 }
 
 function makeText(path) {
+    fs.readFile(path, 'utf8', function(err, data) {
+        if (err) {
+            console.error(`Cannot read file: ${path}: ${err}`);
+            process.exit(1);
+        } else {
+            generateText(data);
+        }
+    });
 }
