@@ -4,12 +4,12 @@ const markov = require('./markov');
 const axios = require('axios');
 const process = require('process');
 
-function generateText(text) {
+function makeText(text) {
     let mm = new markov.MarkovMachine(text);
     console.log(mm.makeText());
 }
 
-function makeText(path) {
+function makeFileText(path) {
     fs.readFile(path, 'utf8', function(err, data) {
         if (err) {
             console.error(`Cannot read file: ${path}: ${err}`);
@@ -18,4 +18,16 @@ function makeText(path) {
             generateText(data);
         }
     });
+}
+
+async function makeURLText(url) {
+    let res;
+
+    try {
+        res = await axios.get(url);
+    } catch (err) {
+        console.error(`Cannot read URL: ${url}: ${err}`);
+        process.exit(1);
+    }
+    generateText(res.data);
 }
